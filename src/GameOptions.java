@@ -3,7 +3,7 @@
  * Используется для глобальных настроек в игре
  */
 public class GameOptions {
-    private boolean manualShipsReplacement; // ручная расстановка кораблей или автоматическая (случайная)
+    private boolean manualShipsReplacement; // ручная расстановка кораблей или автоматическая (случайная). 
 
     public boolean isManualShipsReplacement() {
         return manualShipsReplacement;

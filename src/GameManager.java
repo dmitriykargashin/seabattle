@@ -1,4 +1,3 @@
-import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -21,12 +20,12 @@ public class GameManager {
         System.out.println("Welcome to SeaBattle!\n"); // Поприветствуем
         askForAutoOrManualShipsReplacement(gameOptions);
 
-        player1 = CreatePlayer(); // получим первого игрока
-        player2 = CreatePlayer(); // получим второго игрока
+        player1 = createPlayer(); // получим первого игрока
+        player2 = createPlayer(); // получим второго игрока
 
         // генерируем всё игровое пространство для каждого игрока
-        GenerateGameForPlayer(player1);
-        GenerateGameForPlayer(player2);
+        generateGameForPlayer(player1);
+        generateGameForPlayer(player2);
 
         perform30RandomShoots(player1, player2);
 
@@ -67,10 +66,10 @@ public class GameManager {
         showPlayerFields(playerInfo1);
     }
 
-    private void GenerateGameForPlayer(PlayerInfo player) {
+    private void generateGameForPlayer(PlayerInfo player) {
 // если автоматом, то будем генерить
         if (!gameOptions.isManualShipsReplacement()) {
-            GenerateShips(player);// генерим корабли на поле
+            generateShips(player);// генерим корабли на поле
             System.out.println("\nShips generated!"); // Чужое поле
         } else { // попросим расставить вручную
 
@@ -86,11 +85,11 @@ public class GameManager {
         player.getAlienSeaField().showField();// выведем сгенерированное поле на экран
     }
 
-    private void GenerateShips(PlayerInfo forPlayer) { // создадим случайным образом корабли для указанного игрока
-        forPlayer.getShipsList().GenerateRandom(DECK_1_SHIPS_COUNT, DECK_2_SHIPS_COUNT, DECK_3_SHIPS_COUNT, DECK_4_SHIPS_COUNT, forPlayer.getOwnField());
+    private void generateShips(PlayerInfo forPlayer) { // создадим случайным образом корабли для указанного игрока
+        forPlayer.getShipsList().generateRandom(DECK_1_SHIPS_COUNT, DECK_2_SHIPS_COUNT, DECK_3_SHIPS_COUNT, DECK_4_SHIPS_COUNT, forPlayer.getOwnField());
     }
 
-    private PlayerInfo CreatePlayer()// создадим игрока
+    private PlayerInfo createPlayer()// создадим игрока
     {
         System.out.println("\nEnter Player Name/NickName:"); // Поприветствуем
 

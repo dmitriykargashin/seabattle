@@ -1,4 +1,3 @@
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -16,32 +15,32 @@ public class Ship {
         this.shipType = shipType;
         this.shipRotation = shipRotation;
         coordinates.add(coordinate); // добавим координату первой палубы
-        CalculateShipLength();
+        calculateShipLength();
 
         // теперь нужно рассчитать остальные координаты в зависимости от типа и угла размещения
-        CalculateAnotherCoordinates();
+        calculateAnotherCoordinates();
 
     }
 
-    private void CalculateAnotherCoordinates() {
+    private void calculateAnotherCoordinates() {
         //заполнение остальных координат корабля на основании длины, и угла поворота от начальной точки
         switch (shipRotation) {
             case ROTATION_0:
-                CalculateCoordinates0Angle();
+                calculateCoordinates0Angle();
                 break;
             case ROTATION_90:
-                CalculateCoordinates90Angle();
+                calculateCoordinates90Angle();
                 break;
             case ROTATION_180:
-                CalculateCoordinates180Angle();
+                calculateCoordinates180Angle();
                 break;
             case ROTATION_270:
-                CalculateCoordinates270Angle();
+                calculateCoordinates270Angle();
                 break;
         }
     }
 
-    private void CalculateCoordinates0Angle() {
+    private void calculateCoordinates0Angle() {
         Coordinate firstCoordinate = coordinates.get(0);
         for (int i = 1; i < length; i++) {
             Coordinate NextCoordinate = new Coordinate(firstCoordinate.x + i, firstCoordinate.y);// движемся по x вправо
@@ -49,7 +48,7 @@ public class Ship {
         }
     }
 
-    private void CalculateCoordinates90Angle() {
+    private void calculateCoordinates90Angle() {
         Coordinate firstCoordinate = coordinates.get(0);
         for (int i = 1; i < length; i++) {
             Coordinate NextCoordinate = new Coordinate(firstCoordinate.x, firstCoordinate.y - i);// движемся по у вверх
@@ -58,7 +57,7 @@ public class Ship {
     }
 
 
-    private void CalculateCoordinates180Angle() {
+    private void calculateCoordinates180Angle() {
         Coordinate firstCoordinate = coordinates.get(0);
         for (int i = 1; i < length; i++) {
             Coordinate NextCoordinate = new Coordinate(firstCoordinate.x - i, firstCoordinate.y);// движемся по x влево
@@ -66,7 +65,7 @@ public class Ship {
         }
     }
 
-    private void CalculateCoordinates270Angle() {
+    private void calculateCoordinates270Angle() {
         Coordinate firstCoordinate = coordinates.get(0);
         for (int i = 1; i < length; i++) {
             Coordinate NextCoordinate = new Coordinate(firstCoordinate.x, firstCoordinate.y + i);// движемся по у вниз
@@ -74,7 +73,7 @@ public class Ship {
         }
     }
 
-    private void CalculateShipLength() {
+    private void calculateShipLength() {
         // расчёт длины корабля
         switch (shipType) {
             case DECK1:

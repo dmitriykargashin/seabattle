@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 /**
  * Created by Dimon on 21.02.2016.
  * Информация о пользователе

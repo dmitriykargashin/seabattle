@@ -13,28 +13,28 @@ public class ShipsList {
         shipsList = new ArrayList<>();
     }
 
-    public void GenerateRandom(int deck1ShipsCount, int deck2ShipsCount, int deck3ShipsCount, int deck4ShipsCount, SeaField seaField) {
+    public void generateRandom(int deck1ShipsCount, int deck2ShipsCount, int deck3ShipsCount, int deck4ShipsCount, SeaField seaField) {
         //тут генерим указанного количества корабли на указанном поле
         for (int i = 0; i < deck1ShipsCount; i++) {
-            GenerateAndSetShip(ShipType.DECK1, seaField);
+            generateAndSetShip(ShipType.DECK1, seaField);
         }
 
         for (int i = 0; i < deck2ShipsCount; i++) {
-            GenerateAndSetShip(ShipType.DECK2, seaField);
+            generateAndSetShip(ShipType.DECK2, seaField);
         }
 
         for (int i = 0; i < deck3ShipsCount; i++) {
-            GenerateAndSetShip(ShipType.DECK3, seaField);
+            generateAndSetShip(ShipType.DECK3, seaField);
         }
 
         for (int i = 0; i < deck4ShipsCount; i++) {
-            GenerateAndSetShip(ShipType.DECK4, seaField);
+            generateAndSetShip(ShipType.DECK4, seaField);
         }
 
     }
 
 
-    private void GenerateAndSetShip(ShipType shipType, SeaField seaField) {
+    private void generateAndSetShip(ShipType shipType, SeaField seaField) {
         // тут поищем случайные координаты, случайный поворот
         Random randNumber = new Random();
         Ship nextShip;// размещённый корабль
@@ -47,12 +47,12 @@ public class ShipsList {
             ShipRotation shipRotation = ShipRotation.values()[shipRot];
 
             nextShip = new Ship(coordinate, shipType, shipRotation);
-            if ((seaField.ShipIsFitToCoordinates(nextShip))) isFit = true;
+            if ((seaField.shipIsFitToCoordinates(nextShip))) isFit = true;
             else isFit = false;
 
         } while (!isFit); //TODO теоретически тут может зациклиться
         // тут поставим корабль на поле.
-        seaField.SetShipToField(nextShip);// поместим корабль на поле
+        seaField.setShipToField(nextShip);// поместим корабль на поле
 
         shipsList.add(nextShip);// добавим корабль в список кораблей игрока
     }

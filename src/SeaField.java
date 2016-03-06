@@ -55,7 +55,7 @@ public class SeaField {
         }
     }
 
-    public boolean ShipIsFitToCoordinates(Ship ship) {
+    public boolean shipIsFitToCoordinates(Ship ship) {
         // проверка может ли корабль быть разещён тут
         ArrayList<Coordinate> shipCoordinates = ship.getCoordinates();
         //int shipLength = ship.getShipLength();
@@ -74,15 +74,12 @@ public class SeaField {
             }
         }
 
-
-
-
     return true;
 }
 
     private boolean isNearCoordAtFieldNotEmpty(Coordinate coordinate) {
         //проверить соседние координаты поля в радиусе 1, чтобы были свободны. По диагонали разрешим соприкасаться
-        
+
         if ((coordinate.x < lastFieldSideMatrixIndex) && (fieldMatrix[coordinate.x + 1][coordinate.y].getCoordState() != CoordinateState.COORD_STATE_EMPTY)) {
             return true;
         }
@@ -104,13 +101,12 @@ public class SeaField {
 
     }
 
-    public void SetShipToField(Ship ship) {
+    public void setShipToField(Ship ship) {
         // утсновка корабля на поле
         ArrayList<Coordinate> shipCoordinates = ship.getCoordinates();
         for (Coordinate coordinate : shipCoordinates) {
 
             fieldMatrix[coordinate.x][coordinate.y].setCoordState(CoordinateState.COORD_STATE_SHIP); // отмечаем, что поле занято кораблём
-
 
         }
 

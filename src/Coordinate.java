@@ -13,10 +13,14 @@ public class Coordinate extends Point { // наследуемся от клас�
         super(x, y);
         //this.x = x;
         //this.y = y;
-
         coordinateState = CoordinateState.COORD_STATE_EMPTY;
     }
 
+    @Override
+    public String toString() {
+
+        return (char) ('A' + y) + "," + x;
+    }
 
     public CoordinateState getCoordState() {
         return coordinateState;

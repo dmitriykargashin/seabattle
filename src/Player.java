@@ -1,15 +1,21 @@
+import java.util.ArrayList;
+
 /**
  * Created by Dimon on 21.02.2016.
  * Информация о пользователе
  */
-public class PlayerInfo {
+public class Player {
     private String userName; // имя игрока
     private ShipsList shipsList = new ShipsList();// список кораблей игрока
 
     private SeaField ownSeaField; //собственное поле
     private SeaField alienSeaField; // чужое поле
 
-    public PlayerInfo(String userName, int fieldSideSize) {
+    private ArrayList<Coordinate> priorCoordstoShoot = new ArrayList<>(); // тут будем хранить приортетный список координат для выстрела
+
+
+    public Player(String userName, int fieldSideSize) {
+
         this.userName = userName;
         ownSeaField = new SeaField(fieldSideSize);// создаем своё поле с указанным размером
         alienSeaField = new SeaField(fieldSideSize);// создаем чужое поле с указанным размером
@@ -31,5 +37,8 @@ public class PlayerInfo {
         return alienSeaField;
     }
 
+    public ArrayList<Coordinate> getPriorCoordstoShoot() {// получим список приортетных координат
+        return priorCoordstoShoot;
+    }
 
 }

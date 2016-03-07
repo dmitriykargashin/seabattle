@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Ship {
 
     private ShipType shipType; // тип корабля
-    private ArrayList<Coordinate> coordinates = new ArrayList<>(); //координаты первой палубы
+    private ArrayList<Coordinate> coordinates = new ArrayList<>(); //координаты от первой палубы
     private ShipRotation shipRotation; // угол поворота корабля относительно первой палубы
     private int length; //длина корабля;
 

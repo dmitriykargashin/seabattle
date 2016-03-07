@@ -74,8 +74,8 @@ public class SeaField {
             }
         }
 
-    return true;
-}
+        return true;
+    }
 
     private boolean isNearCoordAtFieldNotEmpty(Coordinate coordinate) {
         //проверить соседние координаты поля в радиусе 1, чтобы были свободны. По диагонали разрешим соприкасаться
@@ -101,13 +101,41 @@ public class SeaField {
 
     }
 
+    public ArrayList<Coordinate> getNotShootedNearCoords(Coordinate coordinate) {
+        // получить список нестрелянных координат вокруг указанной
+        // прингодится для обстрела координат вокруг координаты после попадания
+        // прверим четыре направления в радиусе 1
+
+        ArrayList<Coordinate> priorCoords = new ArrayList<Coordinate>(); // список координат для приритетного обстрела
+
+        if ((coordinate.x < lastFieldSideMatrixIndex) && (fieldMatrix[coordinate.x + 1][coordinate.y].getCoordState() != CoordinateState.COORD_STATE_HIT)
+                && (fieldMatrix[coordinate.x + 1][coordinate.y].getCoordState() != CoordinateState.COORD_STATE_MISSED)) {
+            priorCoords.add(fieldMatrix[coordinate.x + 1][coordinate.y]);
+        }
+
+        if ((coordinate.x > 0) && (fieldMatrix[coordinate.x - 1][coordinate.y].getCoordState() != CoordinateState.COORD_STATE_HIT)
+                && (fieldMatrix[coordinate.x - 1][coordinate.y].getCoordState() != CoordinateState.COORD_STATE_MISSED)) {
+            priorCoords.add(fieldMatrix[coordinate.x - 1][coordinate.y]);
+        }
+
+        if ((coordinate.y < lastFieldSideMatrixIndex) && (fieldMatrix[coordinate.x][coordinate.y + 1].getCoordState() != CoordinateState.COORD_STATE_HIT)
+                && (fieldMatrix[coordinate.x][coordinate.y + 1].getCoordState() != CoordinateState.COORD_STATE_MISSED)) {
+            priorCoords.add(fieldMatrix[coordinate.x][coordinate.y + 1]);
+        }
+
+        if ((coordinate.y > 0) && (fieldMatrix[coordinate.x][coordinate.y - 1].getCoordState() != CoordinateState.COORD_STATE_HIT)
+                && (fieldMatrix[coordinate.x][coordinate.y - 1].getCoordState() != CoordinateState.COORD_STATE_MISSED)) {
+            priorCoords.add(fieldMatrix[coordinate.x][coordinate.y - 1]);
+        }
+
+        return priorCoords;
+    }
+
     public void setShipToField(Ship ship) {
         // утсновка корабля на поле
         ArrayList<Coordinate> shipCoordinates = ship.getCoordinates();
         for (Coordinate coordinate : shipCoordinates) {
-
             fieldMatrix[coordinate.x][coordinate.y].setCoordState(CoordinateState.COORD_STATE_SHIP); // отмечаем, что поле занято кораблём
-
         }
 
     }

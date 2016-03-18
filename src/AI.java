@@ -16,7 +16,7 @@ public class AI {
     }
 
     public void perform30RandomShoots(Player player1, Player player2) {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 30; i++) {
             System.out.println("\n" + i + " turn");
             performRandomShoot(player1, player2); // первый игрок ходит к второму
             performRandomShoot(player2, player1); // второй игрок ходит к первому

@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -9,11 +10,15 @@ public class SeaField {
     static int lastFieldSideMatrixIndex = 0;
     private Coordinate[][] fieldMatrix;// двумерная матрица игрового поля
 
+    public Coordinate[][] getFieldMatrix() {// получение всей матрицы игрового поля
+        return fieldMatrix;
+    }
 
     public SeaField(int fieldSideSize) {// тут сразу создам поле
         fieldSideSizeMatrix = fieldSideSize;
         lastFieldSideMatrixIndex = fieldSideSize - 1;
         fieldMatrix = new Coordinate[fieldSideSizeMatrix][fieldSideSizeMatrix];
+
 
         for (int i = 0; i <= lastFieldSideMatrixIndex; i++) {
             for (int j = 0; j <= lastFieldSideMatrixIndex; j++) {
@@ -24,36 +29,7 @@ public class SeaField {
     }
 
 
-    public void showField() { //вывод на экран указанного поля с разным состоянием ячеек
-        System.out.print("  ");
-        for (int i = 0; i <= lastFieldSideMatrixIndex; i++) {
-            System.out.print(" " + (char) ('A' + i) + " ");
-        }
-        System.out.print("\n");
 
-        for (int i = 0; i <= lastFieldSideMatrixIndex; i++) {
-            System.out.print(i + " ");
-            for (int j = 0; j <= lastFieldSideMatrixIndex; j++) {
-                switch (fieldMatrix[i][j].getCoordState()) {
-                    case COORD_STATE_EMPTY:
-                        System.out.print("\033[36m . \033[0m");
-                        break;
-                    case COORD_STATE_HIT:
-                        System.out.print("\033[31m[X]\033[0m");
-                        break;
-                    case COORD_STATE_MISSED:
-                        System.out.print("\033[33m о \033[0m");
-                        break;
-                    case COORD_STATE_SHIP:
-                        System.out.print("\033[34m[+]\033[0m");
-                        break;
-                }
-
-            }
-            System.out.print("\n");
-
-        }
-    }
 
     public boolean shipIsFitToCoordinates(Ship ship) {
         // проверка может ли корабль быть разещён тут
@@ -106,7 +82,7 @@ public class SeaField {
         // прингодится для обстрела координат вокруг координаты после попадания
         // прверим четыре направления в радиусе 1
 
-        ArrayList<Coordinate> priorCoords = new ArrayList<Coordinate>(); // список координат для приритетного обстрела
+        ArrayList<Coordinate> priorCoords = new ArrayList<>(); // список координат для приритетного обстрела
 
         if ((coordinate.x < lastFieldSideMatrixIndex) && (fieldMatrix[coordinate.x + 1][coordinate.y].getCoordState() != CoordinateState.COORD_STATE_HIT)
                 && (fieldMatrix[coordinate.x + 1][coordinate.y].getCoordState() != CoordinateState.COORD_STATE_MISSED)) {

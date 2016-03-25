@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * Created by Dimon on 21.02.2016.
@@ -15,13 +13,13 @@ public class GameManager {
     private GameOptions gameOptions = new GameOptions();// это настройки нашей игры
     private Player gamePlayer1;//  первый игрок
     private Player gamePlayer2;//  второй игрок
-    GUI gui = new GUI();
+    GUIConsole gameGUIConsole = new GUIConsole();
     AI gameAI;
 
     public GameManager() {
 
-        gui.printWelcome();
-        gui.askForAutoOrManualShipsReplacement(gameOptions);
+        gameGUIConsole.printWelcome();
+        gameGUIConsole.askForAutoOrManualShipsReplacement(gameOptions);
 
         gamePlayer1 = createPlayer(); // получим первого игрока
         gamePlayer2 = createPlayer(); // получим второго игрока
@@ -30,7 +28,7 @@ public class GameManager {
         generateGameForPlayer(gamePlayer1);
         generateGameForPlayer(gamePlayer2);
 
-        gameAI = new AI(gameOptions, gui);//закинем начальные значение в ИИ игры
+        gameAI = new AI(gameOptions, gameGUIConsole);//закинем начальные значение в ИИ игры
 
         gameAI.perform30RandomShoots(gamePlayer1, gamePlayer2);
 
@@ -38,8 +36,13 @@ public class GameManager {
         int winner = randWinner.nextInt(2);
 
         //todo тут заглушка для выбора победителя. нужно сделать нормальную отработку выигрыша
-        if (winner == 0) System.out.println("Congratulations " + gamePlayer1.getUserName() + "! You are the Winner!");
-        else System.out.println("Congratulations " + gamePlayer2.getUserName() + "! You are the Winner!");
+        if (winner == 0) {
+            gameGUIConsole.showMessage("Congratulations " + gamePlayer1.getUserName() + "! You are the Winner!");
+            //System.out.println("Congratulations " + gamePlayer1.getUserName() + "! You are the Winner!")
+        } else {
+            gameGUIConsole.showMessage("Congratulations " + gamePlayer2.getUserName() + "! You are the Winner!");
+            //System.out.println("Congratulations " + gamePlayer2.getUserName() + "! You are the Winner!")
+        }
 
     }
 
@@ -48,11 +51,12 @@ public class GameManager {
 // если автоматом, то будем генерить
         if (!gameOptions.isManualShipsReplacement()) {
             generateShips(player);// генерим корабли на поле
-            System.out.println("\nShips generated!"); // Чужое поле
+            gameGUIConsole.showMessage("\nShips generated!");
+            //System.out.println("\nShips generated!");
         } else { // попросим расставить вручную
 
         }
-        gui.showPlayerFields(player);
+        gameGUIConsole.showPlayerFields(player);
     }
 
 
@@ -63,7 +67,7 @@ public class GameManager {
     private Player createPlayer()// создадим игрока
     {
 
-        String playerName = gui.inputPlayerName();
+        String playerName = gameGUIConsole.inputPlayerName();
 
         Player player = new Player(playerName, FIELD_SIDE_SIZE);// создаём игрока с указанным именем и создаём его поля с указанным размером
         return player;

@@ -10,6 +10,7 @@ public class Ship {
     private ArrayList<Coordinate> coordinates = new ArrayList<>(); //координаты от первой палубы
     private ShipRotation shipRotation; // угол поворота корабля относительно первой палубы
     private int length; //длина корабля;
+    private boolean isSunken;// потоплен ли корабль
 
     public Ship(Coordinate coordinate, ShipType shipType, ShipRotation shipRotation) {
         this.shipType = shipType;
@@ -20,6 +21,15 @@ public class Ship {
         // теперь нужно рассчитать остальные координаты в зависимости от типа и угла размещения
         calculateAnotherCoordinates();
 
+    }
+
+
+    public boolean isSunken() {
+        return isSunken;
+    }
+
+    public void setSunken(boolean sunken) {
+        isSunken = sunken;
     }
 
     private void calculateAnotherCoordinates() {

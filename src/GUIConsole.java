@@ -4,7 +4,7 @@ import java.util.Scanner;
  * Created by Dimon on 07.03.2016.
  * класс для работы с графическим интерфейсом(на данный момент (07.03.16) с консолью)
  */
-public class GUI implements Viewable {
+public class GUIConsole implements Viewable {
 
     @Override
     public void showPlayerFields(Player player) {
@@ -86,5 +86,10 @@ public class GUI implements Viewable {
             System.out.print("\n");
 
         }
+    }
+
+    @Override
+    public void showMessage(String s) {
+        System.out.println(s);
     }
 }

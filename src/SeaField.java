@@ -79,7 +79,7 @@ public class SeaField {
 
     public ArrayList<Coordinate> getNotShootedNearCoords(Coordinate coordinate) {
         // получить список нестрелянных координат вокруг указанной
-        // прингодится для обстрела координат вокруг координаты после попадания
+        // пригодится для обстрела координат вокруг координаты после попадания
         // прверим четыре направления в радиусе 1
 
         ArrayList<Coordinate> priorCoords = new ArrayList<>(); // список координат для приритетного обстрела
@@ -108,7 +108,7 @@ public class SeaField {
     }
 
     public void setShipToField(Ship ship) {
-        // утсновка корабля на поле
+        // установка корабля на поле
         ArrayList<Coordinate> shipCoordinates = ship.getCoordinates();
         for (Coordinate coordinate : shipCoordinates) {
             fieldMatrix[coordinate.x][coordinate.y].setCoordState(CoordinateState.COORD_STATE_SHIP); // отмечаем, что поле занято кораблём

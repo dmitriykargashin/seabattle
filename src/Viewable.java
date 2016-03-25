@@ -14,4 +14,6 @@ public interface Viewable {
     String inputPlayerName();//получить имя игрока
 
     void showField(SeaField seaField, int lastFieldSideMatrixIndex); //вывод на экран указанного поля с разным состоянием ячеек
+
+    void showMessage(String s);
 }

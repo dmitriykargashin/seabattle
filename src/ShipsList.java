@@ -5,12 +5,12 @@ import java.util.Random;
  * Created by Dimon on 22.02.2016.
  * Список кораблей одного игрока
  */
-public class ShipsList {
+public class ShipsList extends ArrayList<Ship> {
     private int liveShipsCount = 0; //общее количество оставщихся кораблей //todo пока непонятно, нужна ли эта переменная
-    private ArrayList<Ship> shipsList; // корабли игрока
+    //private ArrayList<Ship> shipsList; // корабли игрока
 
     public ShipsList() {
-        shipsList = new ArrayList<>();
+        //shipsList = new ArrayList<>();
     }
 
     public void generateRandom(int deck1ShipsCount, int deck2ShipsCount, int deck3ShipsCount, int deck4ShipsCount, SeaField seaField) {
@@ -54,9 +54,18 @@ public class ShipsList {
         // тут поставим корабль на поле.
         seaField.setShipToField(nextShip);// поместим корабль на поле
 
-        shipsList.add(nextShip);// добавим корабль в список кораблей игрока
+        //shipsList.
+        add(nextShip);// добавим корабль в список кораблей игрока
     }
 
+    public boolean isAllShipsSunken() { // проверим все ли корабли потоплены
 
+        for (Ship ship : this) {
+            if (!ship.isSunken()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 

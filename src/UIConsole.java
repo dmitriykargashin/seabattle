@@ -4,7 +4,7 @@ import java.util.Scanner;
  * Created by Dimon on 07.03.2016.
  * класс для работы с графическим интерфейсом(на данный момент (07.03.16) с консолью)
  */
-public class GUIConsole implements Viewable {
+public class UIConsole implements Viewable {
 
     @Override
     public void showPlayerField(Player player, boolean isAlienField) {

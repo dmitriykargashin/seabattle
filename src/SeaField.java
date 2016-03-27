@@ -128,7 +128,7 @@ public class SeaField {
             }
             case COORD_STATE_SHIP: {
                 getCoordinates(x, y).setCoordState(CoordinateState.COORD_STATE_HIT);
-                getCoordinates(x, y).getShip().hitByCoordinates(x, y);// отметить в коорднтатх корабля, что в него попали
+                getCoordinates(x, y).getShip().hitByCoordinates(x, y);// отметить в координатах корабля, что в него попали
                 break;
             }
         }

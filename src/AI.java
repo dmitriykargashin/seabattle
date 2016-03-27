@@ -8,21 +8,15 @@ import java.util.Random;
  */
 public class AI {
     private GameOptions gameOptions;
-    private GUIConsole gameGUIConsole;
+    private UIConsole gameUIConsole;
+    private GameManager gameManager;
 
-    public AI(GameOptions gameOptions, GUIConsole gameGUIConsole) {
+    public AI(GameOptions gameOptions, UIConsole gameUIConsole, GameManager gameManager) {
         this.gameOptions = gameOptions;
-        this.gameGUIConsole = gameGUIConsole;
+        this.gameUIConsole = gameUIConsole;
+        this.gameManager = gameManager;
     }
 
-    public void perform30RandomShoots(Player player1, Player player2) {
-        for (int i = 0; i < 30; i++) {
-            gameGUIConsole.showMessage("\n" + i + " turn");
-            //System.out.println();
-            performRandomShoot(player1, player2); // первый игрок ходит к второму
-            performRandomShoot(player2, player1); // второй игрок ходит к первому
-        }
-    }
 
     public CoordinateState performRandomShoot(Player player1, Player player2) {
 
@@ -50,11 +44,15 @@ public class AI {
         //Coordinate coordinate = player1.getAlienSeaField().getCoordinates(x, y);
         Coordinate coordinate = player2.getOwnField().getCoordinates(x, y);
         coordinate.setCoordState(coordinateState);
-        gameGUIConsole.showMessage(" \n" + player1.getUserName() + " perform Shot to " + player2.getUserName() + " by the coordinates (" + coordinate.toString() + ")");
+        gameUIConsole.showMessage(" \n" + player1.getUserName() + " perform Shot to " + player2.getUserName() + " by the coordinates (" + coordinate.toString() + ")");
         //System.out.println(" \n" + player1.getUserName() + " perform Shot to " + player2.getUserName() + " by the coordinates (" + coordinate.toString() + ")");
-        gameGUIConsole.showPlayerField(player1, false);
-        gameGUIConsole.showMessage("\nAlien Sea field:"); // Чужое поле
-        gameGUIConsole.showPlayerField(player2, true);
+        gameUIConsole.showPlayerField(player1, false);
+        gameUIConsole.showMessage("\nAlien Sea field:"); // Чужое поле
+        gameUIConsole.showPlayerField(player2, true);
+
+        if (player2.getShipsList().isAllShipsSunken()) // проверка на заверешение игры
+            gameManager.gameEnd(player1);
+
 
         if (coordinateState == CoordinateState.COORD_STATE_HIT) { // если попали, то даётcя дополнительный выстрел
             do {
@@ -63,7 +61,6 @@ public class AI {
         }
 
         // вернём состояние последней координаты
-
         return coordinateState;
 
     }
@@ -85,22 +82,26 @@ public class AI {
         // устанавливаем состояние координаты поля чужого игрока первому
         //player1.getAlienSeaField().getCoordinates(newCoordinate.x, newCoordinate.y).setCoordState(coordinateState);
         player2.getOwnField().getCoordinates(newCoordinate.x, newCoordinate.y).setCoordState(coordinateState);
-        gameGUIConsole.showMessage(" \n" + player1.getUserName() + " perform Shot to " + player2.getUserName() + " by the coordinates (" + newCoordinate.toString() + ")");
+        gameUIConsole.showMessage(" \n" + player1.getUserName() + " perform Shot to " + player2.getUserName() + " by the coordinates (" + newCoordinate.toString() + ")");
         //System.out.println(" \n" + player1.getUserName() + " perform Shot to " + player2.getUserName() + " by the coordinates (" + newCoordinate.toString() + ")");
 
-        gameGUIConsole.showPlayerField(player1, false);
-        gameGUIConsole.showMessage("\nAlien Sea field:"); // Чужое поле
-        gameGUIConsole.showPlayerField(player2, true);
+        gameUIConsole.showPlayerField(player1, false);
+        gameUIConsole.showMessage("\nAlien Sea field:"); // Чужое поле
+        gameUIConsole.showPlayerField(player2, true);
+
+        if (player2.getShipsList().isAllShipsSunken()) // проверка на заверешение игры
+            gameManager.gameEnd(player1);
 
         return coordinateState;
 
     }
 
+
     public CoordinateState performAdditionalRandomShootByPriorCoordinates(Player player1, Player player2, Coordinate coordinate) {
         // выполняем дополнительный выстрел по приритетным координатам относительно последнего удачного выстрела
 
         // получим приоритетные координаты для выстрела
-        gameGUIConsole.showMessage(" \n" + player1.getUserName() + " perform additional Shot to " + player2.getUserName() + " by the near coordinates (" + coordinate.toString() + ")");
+        gameUIConsole.showMessage(" \n" + player1.getUserName() + " perform additional Shot to " + player2.getUserName() + " by the near coordinates (" + coordinate.toString() + ")");
         //System.out.println();
 
         ArrayList<Coordinate> notShootedNearCoords = player2.getOwnField().getNotShootedNearCoords(coordinate);

@@ -23,7 +23,6 @@ public class SeaField {
         for (int i = 0; i <= lastFieldSideMatrixIndex; i++) {
             for (int j = 0; j <= lastFieldSideMatrixIndex; j++) {
                 fieldMatrix[i][j] = new Coordinate(i, j);
-
             }
         }
     }
@@ -112,10 +111,9 @@ public class SeaField {
         ArrayList<Coordinate> shipCoordinates = ship.getCoordinates();
         for (Coordinate coordinate : shipCoordinates) {
             fieldMatrix[coordinate.x][coordinate.y].setCoordState(CoordinateState.COORD_STATE_SHIP); // отмечаем, что поле занято кораблём
+            fieldMatrix[coordinate.x][coordinate.y].setShip(ship);
         }
-
     }
-
 
     public Coordinate getCoordinates(int x, int y) {
         //получить координату
@@ -130,6 +128,7 @@ public class SeaField {
             }
             case COORD_STATE_SHIP: {
                 getCoordinates(x, y).setCoordState(CoordinateState.COORD_STATE_HIT);
+                getCoordinates(x, y).getShip().hitByCoordinates(x, y);// отметить в коорднтатх корабля, что в него попали
                 break;
             }
         }

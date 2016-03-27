@@ -3,7 +3,7 @@
  * интерфейс для работы с отображением информации на экране
  */
 public interface Viewable {
-    void showPlayerFields(Player player); // показ игровых полей
+    void showPlayerField(Player player, boolean isAlienField); // показ игровых полей
 
     void askForAutoOrManualShipsReplacement(GameOptions gameOpt);   // получить значения опции АВто или ручное размещение кораблей
 
@@ -13,7 +13,7 @@ public interface Viewable {
 
     String inputPlayerName();//получить имя игрока
 
-    void showField(SeaField seaField, int lastFieldSideMatrixIndex); //вывод на экран указанного поля с разным состоянием ячеек
+    void showField(SeaField seaField, int lastFieldSideMatrixIndex, boolean isAlienField); //вывод на экран указанного поля с разным состоянием ячеек. есть признак для чужого поля
 
     void showMessage(String s);
 }

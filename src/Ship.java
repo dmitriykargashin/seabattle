@@ -21,6 +21,14 @@ public class Ship {
         // теперь нужно рассчитать остальные координаты в зависимости от типа и угла размещения
         calculateAnotherCoordinates();
 
+        setIntitialShipStateToAllCoordinates();
+
+    }
+
+    private void setIntitialShipStateToAllCoordinates() {
+        for (Coordinate shipCoordinate : coordinates) {
+            shipCoordinate.setCoordState(CoordinateState.COORD_STATE_SHIP);
+        }
     }
 
 
@@ -28,9 +36,6 @@ public class Ship {
         return isSunken;
     }
 
-    public void setSunken(boolean sunken) {
-        isSunken = sunken;
-    }
 
     private void calculateAnotherCoordinates() {
         //заполнение остальных координат корабля на основании длины, и угла поворота от начальной точки
@@ -48,6 +53,8 @@ public class Ship {
                 calculateCoordinates270Angle();
                 break;
         }
+
+
     }
 
     private void calculateCoordinates0Angle() {
@@ -108,5 +115,28 @@ public class Ship {
 
     public int getShipLength() {
         return length;
+    }
+
+    private void verifyShipIsSunked() {
+
+        for (Coordinate shipCoordinate : coordinates) {
+            if (shipCoordinate.getCoordState() == CoordinateState.COORD_STATE_SHIP) {
+                return;
+            }
+        }
+        isSunken = true;
+
+    }
+
+    public void hitByCoordinates(int x, int y) {
+
+        for (Coordinate shipCoordinate : coordinates) {
+            if (shipCoordinate.x == x & shipCoordinate.y == y) {
+                shipCoordinate.setCoordState(CoordinateState.COORD_STATE_HIT);
+            }
+        }
+
+        verifyShipIsSunked();
+
     }
 }

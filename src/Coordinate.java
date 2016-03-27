@@ -4,21 +4,28 @@ import java.awt.*;
  * Created by Dimon on 22.02.2016.
  */
 public class Coordinate extends Point { // наследуемся от класса Point
-    //private int x;
-    //private int y;
+
     private CoordinateState coordinateState;
 
+    private Ship ship; // если есть корабль на этой координате
 
     public Coordinate(int x, int y) {
         super(x, y);
-        //this.x = x;
-        //this.y = y;
         coordinateState = CoordinateState.COORD_STATE_EMPTY;
     }
 
+    public Ship getShip() {
+        return ship;
+    }
+
+    public void setShip(Ship ship) {
+        this.ship = ship;
+
+    }
+
+
     @Override
     public String toString() {
-
         return (char) ('A' + y) + "," + x;
     }
 
@@ -26,25 +33,9 @@ public class Coordinate extends Point { // наследуемся от клас�
         return coordinateState;
     }
 
-
     public void setCoordState(CoordinateState coordStateShip) {
         coordinateState = coordStateShip;
     }
 
 
-    /*public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }*/
 }

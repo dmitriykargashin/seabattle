@@ -7,15 +7,14 @@ import java.util.Scanner;
 public class GUIConsole implements Viewable {
 
     @Override
-    public void showPlayerFields(Player player) {
-        System.out.println(player.getUserName() + " Sea field:"); // Собственное поле
+    public void showPlayerField(Player player, boolean isAlienField) {
 
 
-        showField(player.getOwnField(), GameManager.FIELD_SIDE_SIZE - 1);// выведем сгенерированное поле на экран
+        showField(player.getOwnField(), GameManager.FIELD_SIDE_SIZE - 1, isAlienField);// выведем сгенерированное поле на экран
         //.showField();
 
-        System.out.println("\nAlien Sea field:"); // Чужое поле
-        showField(player.getAlienSeaField(), GameManager.FIELD_SIDE_SIZE - 1);// выведем сгенерированное поле на экран
+        //System.out.println("\nAlien Sea field:"); // Чужое поле
+        //showField(player.getAlienSeaField(), GameManager.FIELD_SIDE_SIZE - 1);// выведем сгенерированное поле на экран
         //player.getAlienSeaField().showField();// выведем сгенерированное поле на экран
     }
 
@@ -57,7 +56,8 @@ public class GUIConsole implements Viewable {
     }
 
     @Override
-    public void showField(SeaField seaField, int lastFieldSideMatrixIndex) { //вывод на экран указанного поля с разным состоянием ячеек
+    public void showField(SeaField seaField, int lastFieldSideMatrixIndex, boolean isAlienField) { //вывод на экран указанного поля с разным состоянием ячеек
+
         System.out.print("  ");
         for (int i = 0; i <= lastFieldSideMatrixIndex; i++) {
             System.out.print(" " + (char) ('A' + i) + " ");
@@ -72,13 +72,21 @@ public class GUIConsole implements Viewable {
                         System.out.print("\033[36m . \033[0m");
                         break;
                     case COORD_STATE_HIT:
-                        System.out.print("\033[31m[X]\033[0m");
+                        if (seaField.getFieldMatrix()[i][j].getShip().isSunken()) {
+                            System.out.print("\033[37m[X]\033[0m");
+                        } else {
+                            System.out.print("\033[31m[X]\033[0m");
+                        }
                         break;
                     case COORD_STATE_MISSED:
                         System.out.print("\033[33m о \033[0m");
                         break;
                     case COORD_STATE_SHIP:
-                        System.out.print("\033[34m[+]\033[0m");
+                        if (isAlienField) {
+                            System.out.print("\033[36m . \033[0m");
+                        } else {
+                            System.out.print("\033[34m[+]\033[0m");
+                        }
                         break;
                 }
 

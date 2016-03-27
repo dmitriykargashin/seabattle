@@ -56,7 +56,7 @@ public class GameManager {
         } else { // попросим расставить вручную
 
         }
-        gameGUIConsole.showPlayerFields(player);
+        gameGUIConsole.showPlayerField(player, false);
     }
 
 

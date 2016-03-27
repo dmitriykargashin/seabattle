@@ -47,11 +47,14 @@ public class AI {
         coordinateState = player2.getOwnField().shoot(x, y);
 
         // устанавливаем состояние координаты поля чужого игрока первому
-        Coordinate coordinate = player1.getAlienSeaField().getCoordinates(x, y);
+        //Coordinate coordinate = player1.getAlienSeaField().getCoordinates(x, y);
+        Coordinate coordinate = player2.getOwnField().getCoordinates(x, y);
         coordinate.setCoordState(coordinateState);
         gameGUIConsole.showMessage(" \n" + player1.getUserName() + " perform Shot to " + player2.getUserName() + " by the coordinates (" + coordinate.toString() + ")");
         //System.out.println(" \n" + player1.getUserName() + " perform Shot to " + player2.getUserName() + " by the coordinates (" + coordinate.toString() + ")");
-        gameGUIConsole.showPlayerFields(player1);
+        gameGUIConsole.showPlayerField(player1, false);
+        gameGUIConsole.showMessage("\nAlien Sea field:"); // Чужое поле
+        gameGUIConsole.showPlayerField(player2, true);
 
         if (coordinateState == CoordinateState.COORD_STATE_HIT) { // если попали, то даётcя дополнительный выстрел
             do {
@@ -80,11 +83,14 @@ public class AI {
         player1.getPriorCoordstoShoot().remove(coordIndex);
 
         // устанавливаем состояние координаты поля чужого игрока первому
-        player1.getAlienSeaField().getCoordinates(newCoordinate.x, newCoordinate.y).setCoordState(coordinateState);
+        //player1.getAlienSeaField().getCoordinates(newCoordinate.x, newCoordinate.y).setCoordState(coordinateState);
+        player2.getOwnField().getCoordinates(newCoordinate.x, newCoordinate.y).setCoordState(coordinateState);
         gameGUIConsole.showMessage(" \n" + player1.getUserName() + " perform Shot to " + player2.getUserName() + " by the coordinates (" + newCoordinate.toString() + ")");
         //System.out.println(" \n" + player1.getUserName() + " perform Shot to " + player2.getUserName() + " by the coordinates (" + newCoordinate.toString() + ")");
 
-        gameGUIConsole.showPlayerFields(player1);
+        gameGUIConsole.showPlayerField(player1, false);
+        gameGUIConsole.showMessage("\nAlien Sea field:"); // Чужое поле
+        gameGUIConsole.showPlayerField(player2, true);
 
         return coordinateState;
 
